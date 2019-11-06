@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+
+// Componentes
+import encabezado from './components/encabezado';
+import pieDePagina from './components/pieDePagina';
+
+//Paginas
+import mostarProductos from './paginas/mostrar-productos'
+import agrgarProducto from './paginas/agregar-producto';
+import editarProducto from './paginas/editar-producto';
+import inicio from './paginas/inicio';
+import noEncontrado from './paginas/404';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+          <Route path="/" component={inicio} />
+          <Route path="/mostrar-productos" component={mostarProductos} />
+          <Route path="/agregar-producto" component={agrgarProducto} />
+          <Route path="/editar-producto" component={editarProducto} />
+          <Route component={noEncontrado} />
+        </Switch>
+    </Router>    
   );
 }
 

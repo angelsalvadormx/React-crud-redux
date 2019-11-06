@@ -6,6 +6,14 @@
       "Categoria":"Frutas",
       "Marca":"Buena",
       "Cantidad":4
+    },
+    {
+      "Nombre":"Manzana",
+      "Costo":20,
+      "Categoria":"Frutas",
+      "Marca":"Buena",
+      "Cantidad":4
     }
+
   ]
 }
