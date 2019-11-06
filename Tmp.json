@@ -1,0 +1,11 @@
+{
+  "productos":[
+    {
+      "Nombre":"Manzana",
+      "Costo":20,
+      "Categoria":"Frutas",
+      "Marca":"Buena",
+      "Cantidad":4
+    }
+  ]
+}
