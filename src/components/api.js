@@ -27,11 +27,11 @@ const api = {
     getById(nameApi,id){      
       return callApi(`/${nameApi}/${id}`);
     },
-    create(nameApi,usuario) {
+    create(nameApi,data) {
       //throw new Error("500: Server error");
       return callApi(`/${nameApi}`, {
         method: "POST",
-        body: JSON.stringify(usuario)
+        body: JSON.stringify(data)
       });
     },
     read(nameApi,id) {

@@ -1,19 +1,44 @@
 {
-  "productos":[
+  "productos": [
     {
-      "nombre":"Manzana",
-      "costo":20,
-      "categoria":"Frutas",
-      "marca":"Buena",
-      "cantidad":4
+      "id": 1,
+      "nombre": "Manzana",
+      "costo": 20,
+      "categoria": "Frutas",
+      "marca": "A",
+      "cantidad": 4
     },
     {
-      "nombre":"Manzana",
-      "costo":20,
-      "categoria":"Frutas",
-      "marca":"Buena",
-      "cantidad":4
+      "id": 2,
+      "nombre": "Manzana 2",
+      "costo": 20,
+      "categoria": "Frutas",
+      "marca": "JJ",
+      "cantidad": 4
+    },
+    {
+      "nombre": "asdf",
+      "costo": "10",
+      "categoria": "Frutas ",
+      "marca": "TEST",
+      "cantidad": "8",
+      "id": 3
+    },
+    {
+      "nombre": "Test",
+      "costo": "1",
+      "categoria": "Frutas ",
+      "marca": "TEST",
+      "cantidad": "1",
+      "id": 4
+    },
+    {
+      "nombre": "Tests",
+      "costo": "1",
+      "categoria": "Frutas ",
+      "marca": "TEST",
+      "cantidad": "1",
+      "id": 5
     }
-
   ]
 }

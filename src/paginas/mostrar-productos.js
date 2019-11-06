@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import {Link} from "react-router-dom";
 
 // Componentes
 import Producto from '../components/producto';
@@ -28,11 +29,16 @@ class MostrarProductos extends Component {
   render() {
     return (
       <Fragment>
+        <header className="d-flex  p-3 justify-content-end ">
+          <Link className="btn btn-primary" to="/agregar-producto">Agregar Producto</Link>
+        </header>
+        <main className="d-flex">
           {
             this.state.productos.map((item, key) => (
               <Producto key={key} producto={item} />
             ))
           }
+        </main>
       </Fragment>
     );
   }

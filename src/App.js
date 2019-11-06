@@ -10,11 +10,13 @@ import Encabezado from './components/encabezado';
 import PieDePagina from './components/pieDePagina';
 
 //Paginas
+import EliminarProducto from './paginas/eliminar';
 import mostarProductos from './paginas/mostrar-productos'
 import agrgarProducto from './paginas/agregar-producto';
-import editarProducto from './paginas/editar-producto';
+import EditarProducto from './paginas/editar-producto';
 import inicio from './paginas/inicio';
 import noEncontrado from './paginas/404';
+
 
 function App() {
   return (
@@ -24,7 +26,8 @@ function App() {
           <Route path="/" exact component={inicio} />
           <Route path="/productos" component={mostarProductos} />
           <Route path="/agregar-producto" component={agrgarProducto} />
-          <Route path="/editar-producto" component={editarProducto} />
+          <Route path="/editar-producto/:id" component={EditarProducto} />
+          <Route path="/eliminar-producto/:id" component={EliminarProducto} />
           <Route component={noEncontrado} />
         </Switch>
         <PieDePagina/>
