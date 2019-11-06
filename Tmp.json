@@ -1,18 +1,18 @@
 {
   "productos":[
     {
-      "Nombre":"Manzana",
-      "Costo":20,
-      "Categoria":"Frutas",
-      "Marca":"Buena",
-      "Cantidad":4
+      "nombre":"Manzana",
+      "costo":20,
+      "categoria":"Frutas",
+      "marca":"Buena",
+      "cantidad":4
     },
     {
-      "Nombre":"Manzana",
-      "Costo":20,
-      "Categoria":"Frutas",
-      "Marca":"Buena",
-      "Cantidad":4
+      "nombre":"Manzana",
+      "costo":20,
+      "categoria":"Frutas",
+      "marca":"Buena",
+      "cantidad":4
     }
 
   ]

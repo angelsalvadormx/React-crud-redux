@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 // Componentes
-import encabezado from './components/encabezado';
-import pieDePagina from './components/pieDePagina';
+import Encabezado from './components/encabezado';
+import PieDePagina from './components/pieDePagina';
 
 //Paginas
 import mostarProductos from './paginas/mostrar-productos'
@@ -19,13 +19,15 @@ import noEncontrado from './paginas/404';
 function App() {
   return (
     <Router>
+      <Encabezado/>
       <Switch>
-          <Route path="/" component={inicio} />
-          <Route path="/mostrar-productos" component={mostarProductos} />
+          <Route path="/" exact component={inicio} />
+          <Route path="/productos" component={mostarProductos} />
           <Route path="/agregar-producto" component={agrgarProducto} />
           <Route path="/editar-producto" component={editarProducto} />
           <Route component={noEncontrado} />
         </Switch>
+        <PieDePagina/>
     </Router>    
   );
 }
