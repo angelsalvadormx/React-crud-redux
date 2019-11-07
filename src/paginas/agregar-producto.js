@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import swal from 'sweetalert2';
 
 // Componentes
 import Formulario from '../components/formulario';
@@ -34,15 +35,25 @@ class agregarProducto extends Component {
     try {
       await api.create("productos", this.state.form);
       this.setState({ loading: false });
+      swal.fire({
+        title: 'Success!',
+        text: 'Producto Agregado',
+        icon: 'success'
+      });
       this.props.history.push("/productos");
     } catch (error) {
+      swal.fire({
+        title: 'Error!',
+        text: 'Error al agregar el producto',
+        icon: 'error'
+      });
       this.setState({ loading: false, error: error });
     }
   };
 
   render() {
     const style = {
-      center:{
+      center: {
         margin: '30px auto'
       }
     }

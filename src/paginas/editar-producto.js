@@ -1,4 +1,6 @@
 import React, { Component,Fragment } from 'react';
+import swl from 'sweetalert2';
+
 // Componentes
 import Formulario from '../components/formulario';
 import api from '../components/api';
@@ -38,6 +40,7 @@ class EditarProducto extends Component {
       const res = await api.getById("productos", id);
       this.setState({ loading: false });
       this.setState({form:res});
+     
     } catch (error) {
       this.setState({ loading: false, error: error });
     }
@@ -50,8 +53,18 @@ class EditarProducto extends Component {
     try {
       await api.update("productos",this.state.id, this.state.form);
       this.setState({ loading: false });
+      swl.fire({
+        title:"Success!",
+        icon:"success",
+        text:"Producto editado con exito!"
+      });
       this.props.history.push("/productos");
     } catch (error) {
+      swl.fire({
+        title:"Error!",
+        icon:"error",
+        text:"Error al editar el producto"
+      });
       this.setState({ loading: false, error: error });
     }
   };
