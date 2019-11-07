@@ -6,10 +6,11 @@ import swal from 'sweetalert2';
 // Componentes
 import Producto from '../components/producto';
 import Api from '../components/api';
+import Loader from './loader';
 
 class MostrarProductos extends Component {
   state = {
-    loading: false,
+    loading: true,
     error: '',
     productos: []
   }
@@ -22,6 +23,10 @@ class MostrarProductos extends Component {
     try {
       let respuesta = await Api.list('productos');
       this.setState({ productos: respuesta });
+      setTimeout(()=>{
+        this.setState({ loading: false });
+      },500)
+      
     } catch (error) {
       this.setState({ loading: false, error: error })
     }
@@ -62,6 +67,9 @@ class MostrarProductos extends Component {
  
 
   render() {
+    if(this.state.loading == true){
+      return <Loader/>
+    }
     return (
       <Fragment>
         <header className="d-flex  p-3 justify-content-end ">
