@@ -4,6 +4,7 @@ import swl from 'sweetalert2';
 // Componentes
 import Formulario from '../components/formulario';
 import api from '../components/api';
+import Loader from './loader';
 
 class EditarProducto extends Component {
   state = {
@@ -38,9 +39,10 @@ class EditarProducto extends Component {
   async obtenerProducto(id){
     try {
       const res = await api.getById("productos", id);
-      this.setState({ loading: false });
       this.setState({form:res});
-     
+      setTimeout(()=>{
+        this.setState({ loading: false });
+      },200)
     } catch (error) {
       this.setState({ loading: false, error: error });
     }
@@ -74,6 +76,9 @@ class EditarProducto extends Component {
       center: {
         margin: '30px auto'
       }
+    }
+    if(this.state.loading == true){
+      return <Loader/>
     }
     return (
       <Fragment>

@@ -25,7 +25,7 @@ class MostrarProductos extends Component {
       this.setState({ productos: respuesta });
       setTimeout(()=>{
         this.setState({ loading: false });
-      },500)
+      },200)
       
     } catch (error) {
       this.setState({ loading: false, error: error })
