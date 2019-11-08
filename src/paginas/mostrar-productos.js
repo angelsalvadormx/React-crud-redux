@@ -4,15 +4,19 @@ import swal from "sweetalert2";
 
 // Componentes
 import Producto from "../components/producto";
-import Api from "../components/api";
 import Loader from "./loader";
 
 import { connect } from "react-redux";
 import * as productosActions from "../actions/productosActions";
 
 class MostrarProductos extends Component {
+  constructor(props) {
+    super(props);
+    this.eliminarProducto = this.eliminarProducto.bind(this);
+  }
   componentDidMount() {
     this.props.obtenerProductos();
+    this.setState(this.props);
   }
 
   eliminarProducto(id_producto) {
@@ -27,16 +31,18 @@ class MostrarProductos extends Component {
         confirmButtonText: "Si, Eliminarlo!",
         cancelButtonText: "Cancelar"
       })
-      .then(async result => {
+      .then(result => {
         if (result.value) {
-          try {
+          const v = this.props.eliminarProducto(id_producto);
+          console.log(v);
+          /*  try {
             await Api.remove("productos", id_producto);
             swal.fire({
               title: "ELiminado",
               text: "El producto fue eliminado",
               icon: "success"
             });
-            //this.obtenerProductos();
+            //this.obtenerProductos(); 
           } catch (err) {
             console.log(err);
 
@@ -45,7 +51,7 @@ class MostrarProductos extends Component {
               text: "El producto no fue eliminado",
               icon: "error"
             });
-          }
+          }*/
         }
       });
   }

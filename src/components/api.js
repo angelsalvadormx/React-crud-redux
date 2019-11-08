@@ -41,11 +41,12 @@ const api = {
     return callApi(`/${nameApi}/${id}`);
   },
   create(nameApi, data) {
-    //throw new Error("500: Server error");
-    return callApi(`/${nameApi}`, {
-      method: "POST",
-      body: JSON.stringify(data)
+    const db = firebase.firestore();
+    db.settings({
+      timestampsInSnapshots: true
     });
+
+    return db.collection(nameApi).add(data);
   },
   read(nameApi, id) {
     return callApi(`/${nameApi}/${id}`);
@@ -58,9 +59,15 @@ const api = {
   },
   // Lo hubiera llamado `delete`, pero `delete` es un keyword en JavaScript asi que no es buena idea :P
   remove(nameApi, id) {
-    return callApi(`/${nameApi}/${id}`, {
-      method: "DELETE"
+    const db = firebase.firestore();
+    db.settings({
+      timestampsInSnapshots: true
     });
+
+    return db
+      .collection(nameApi)
+      .doc(id)
+      .delete();
   }
 };
 
