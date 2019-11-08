@@ -1,3 +1,4 @@
+import firebase from "./Firestore";
 const BASE_URL = "http://localhost:2000";
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -15,40 +16,52 @@ async function callApi(endpoint, options = {}) {
   const url = BASE_URL + endpoint;
   const response = await fetch(url, options);
   const data = await response.json();
+  console.log(data);
   return data;
 }
 
 const api = {
-    list(nameApi) {
-      //return [];
-      //throw new Error("Not found");
-      return callApi(`/${nameApi}`);
-    },
-    getById(nameApi,id){      
-      return callApi(`/${nameApi}/${id}`);
-    },
-    create(nameApi,data) {
-      //throw new Error("500: Server error");
-      return callApi(`/${nameApi}`, {
-        method: "POST",
-        body: JSON.stringify(data)
+  list(nameApi) {
+    const db = firebase.firestore();
+    db.settings({
+      timestampsInSnapshots: true
+    });
+    return db
+      .collection(nameApi)
+      .get()
+      .then(querySnapshot => {
+        let data = querySnapshot.docs.map(
+          doc => (doc = { ...doc.data(), id: doc.id })
+        );
+        console.log(data);
+        return data;
       });
-    },
-    read(nameApi,id) {
-      return callApi(`/${nameApi}/${id}`);
-    },
-    update(nameApi,id,updates) {
-      return callApi(`/${nameApi}/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(updates)
-      });
-    },
-    // Lo hubiera llamado `delete`, pero `delete` es un keyword en JavaScript asi que no es buena idea :P
-    remove(nameApi,id) {
-      return callApi(`/${nameApi}/${id}`, {
-        method: "DELETE"
-      });
-    }
+  },
+  getById(nameApi, id) {
+    return callApi(`/${nameApi}/${id}`);
+  },
+  create(nameApi, data) {
+    //throw new Error("500: Server error");
+    return callApi(`/${nameApi}`, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+  },
+  read(nameApi, id) {
+    return callApi(`/${nameApi}/${id}`);
+  },
+  update(nameApi, id, updates) {
+    return callApi(`/${nameApi}/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(updates)
+    });
+  },
+  // Lo hubiera llamado `delete`, pero `delete` es un keyword en JavaScript asi que no es buena idea :P
+  remove(nameApi, id) {
+    return callApi(`/${nameApi}/${id}`, {
+      method: "DELETE"
+    });
+  }
 };
 
 export default api;
