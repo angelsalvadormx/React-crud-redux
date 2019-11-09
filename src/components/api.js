@@ -52,10 +52,11 @@ const api = {
     return callApi(`/${nameApi}/${id}`);
   },
   update(nameApi, id, updates) {
-    return callApi(`/${nameApi}/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(updates)
+    const db = firebase.firestore();
+    db.settings({
+      timestampsInSnapshots: true
     });
+    return db.collection(nameApi).doc(id).update(updates);
   },
   // Lo hubiera llamado `delete`, pero `delete` es un keyword en JavaScript asi que no es buena idea :P
   remove(nameApi, id) {

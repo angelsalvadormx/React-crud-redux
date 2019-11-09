@@ -4,12 +4,13 @@ import swl from "sweetalert2";
 // Componentes
 import Formulario from "../components/formulario";
 import api from "../components/api";
-import Loader from "./loader";
+
+import { connect } from "react-redux";
+import * as productosActions from "../actions/productosActions";
+
 
 class EditarProducto extends Component {
   state = {
-    loading: true,
-    error: "",
     id: 0,
     form: {
       nombre: "",
@@ -27,17 +28,23 @@ class EditarProducto extends Component {
         [e.target.name]: e.target.value
       }
     });
-    console.log(this.state.form);
   };
 
   constructor(props) {
     super(props);
-    this.obtenerProducto(parseInt(props.match.params.id));
+    this.obtenerProducto(props.match.params.id);
     this.state.id = props.match.params.id;
   }
 
-  async obtenerProducto(id) {
-    try {
+  obtenerProducto(id) {
+    let found = this.props.productos.find((item) => {
+      return item.id == id;
+    });
+    if (found != undefined) {
+      this.state.form = found;
+    }
+
+    /*try {
       const res = await api.getById("productos", id);
       this.setState({ form: res });
       setTimeout(() => {
@@ -45,30 +52,30 @@ class EditarProducto extends Component {
       }, 200);
     } catch (error) {
       this.setState({ loading: false, error: error });
-    }
+    }*/
   }
 
-  handleSubmit = async e => {
+  handleSubmit = e => {
     e.preventDefault();
-    this.setState({ loading: true, error: null });
-
-    try {
-      await api.update("productos", this.state.id, this.state.form);
-      this.setState({ loading: false });
-      swl.fire({
-        title: "Success!",
-        icon: "success",
-        text: "Producto editado con exito!"
-      });
-      this.props.history.push("/productos");
-    } catch (error) {
-      swl.fire({
-        title: "Error!",
-        icon: "error",
-        text: "Error al editar el producto"
-      });
-      this.setState({ loading: false, error: error });
-    }
+    this.props.editarProducto(this.state.form,this.state.id);
+    /*    try {
+          await api.update("productos", this.state.id, this.state.form);
+          this.setState({ loading: false });
+          swl.fire({
+            title: "Success!",
+            icon: "success",
+            text: "Producto editado con exito!"
+          });
+          this.props.history.push("/productos");
+        } catch (error) {
+          swl.fire({
+            title: "Error!",
+            icon: "error",
+            text: "Error al editar el producto"
+          });
+          this.setState({ loading: false, error: error });
+        }
+        */
   };
 
   render() {
@@ -77,9 +84,7 @@ class EditarProducto extends Component {
         margin: "30px auto"
       }
     };
-    if (this.state.loading === true) {
-      return <Loader />;
-    }
+
     return (
       <Fragment>
         <section className="w-50" style={style.center}>
@@ -95,5 +100,11 @@ class EditarProducto extends Component {
     );
   }
 }
+const mapStateToProps = (state, props) => {
+  return state.productosReducers;
+};
 
-export default EditarProducto;
+export default connect(
+  mapStateToProps,
+  productosActions
+)(EditarProducto);
