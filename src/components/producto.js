@@ -8,7 +8,7 @@ class Producto extends Component {
   //console.log(onClick);
 
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <div
         className="card mr-2 ml-2 mb-3 border shadow"

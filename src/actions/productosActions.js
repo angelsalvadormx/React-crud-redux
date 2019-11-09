@@ -23,18 +23,20 @@ export const obtenerProductos = () => async dispath => {
 export const eliminarProducto = id => async dispath => {
   try {
     const respuesta = await Api.remove("productos", id);
+    //console.log(respuesta);
     dispath({
       type: ELIMINAR_PRODUCTO,
       payload: respuesta
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error: ", error.message);
+  }
 };
 
 export const agregarProducto = producto => async dispath => {
   try {
     const respuesta = await Api.create("productos", producto);
-    console.log("respuesta update",respuesta);
-    
+
     dispath({
       type: AGREGAR_PRODUCTO,
       payload: respuesta
@@ -42,12 +44,12 @@ export const agregarProducto = producto => async dispath => {
   } catch (error) {}
 };
 
-export const editarProducto = (producto,id) => async dispath => {
-  try{
-    const respuesta = await Api.update("productos",id,producto);
+export const editarProducto = (producto, id) => async dispath => {
+  try {
+    const respuesta = await Api.update("productos", id, producto);
     dispath({
       type: EDITAR_PRODUCTO,
       payload: respuesta
-    })
-  }catch(error){}
-}
+    });
+  } catch (error) {}
+};

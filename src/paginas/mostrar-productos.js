@@ -16,7 +16,29 @@ class MostrarProductos extends Component {
   }
   componentDidMount() {
     this.props.obtenerProductos();
-    this.setState(this.props);
+    this.intervalId = setInterval(this.props.obtenerProductos, 5000);
+  }
+  componentDidUpdate() {
+    this.comprobar();
+  }
+  componentWillUnmount() {
+    clearTimeout(this.intervalId);
+  }
+
+  comprobar() {
+    if (this.props.eliminado === true) {
+      swal.fire({
+        title: "ELiminado",
+        text: "El producto fue eliminado",
+        icon: "success"
+      });
+    } else if (this.props.eliminado === false) {
+      swal.fire({
+        title: "Error",
+        text: "El producto no fue eliminado",
+        icon: "error"
+      });
+    }
   }
 
   eliminarProducto(id_producto) {
@@ -33,25 +55,7 @@ class MostrarProductos extends Component {
       })
       .then(result => {
         if (result.value) {
-          const v = this.props.eliminarProducto(id_producto);
-          console.log(v);
-          /*  try {
-            await Api.remove("productos", id_producto);
-            swal.fire({
-              title: "ELiminado",
-              text: "El producto fue eliminado",
-              icon: "success"
-            });
-            //this.obtenerProductos(); 
-          } catch (err) {
-            console.log(err);
-
-            swal.fire({
-              title: "Error",
-              text: "El producto no fue eliminado",
-              icon: "error"
-            });
-          }*/
+          this.props.eliminarProducto(id_producto);
         }
       });
   }

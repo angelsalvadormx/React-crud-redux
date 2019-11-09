@@ -1,10 +1,9 @@
-import React from 'react';
-
+import React from "react";
 
 export default props => {
   const data = props.formValues;
-  console.log(props);
-  
+  //console.log(props);
+
   return (
     <form className="" onSubmit={props.onSubmit}>
       <div className="form-group">
@@ -69,4 +68,4 @@ export default props => {
       </div>
     </form>
   );
-} 
+};
