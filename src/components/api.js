@@ -8,6 +8,7 @@ const api = {
     }); */
     return db
       .collection(nameApi)
+      .orderBy("nombre")
       .get()
       .then(querySnapshot => {
         let data = querySnapshot.docs.map(
